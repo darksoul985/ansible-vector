@@ -1,12 +1,14 @@
 #SPDX-License-Identifier: MIT-0
 galaxy_info:
-  author: Sergey Shirobokov
+  role_name: vector_role
+  namespace: internal
+  author: "Sergey Shirobokov"
   description: Role for installation and configuration of Vector on RedHat-compatible distributions
   company: your company (optional)
 
-  license: MIT
+  license: "MIT"
 
-  min_ansible_version: 2.2
+  min_ansible_version: "2.2"
 
   galaxy_tags:
     - vector

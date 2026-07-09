@@ -1,0 +1,17 @@
+---
+# Purpose: bring the instance to the desired state by running the role under test.
+# Molecule calls this playbook with `molecule converge`.
+- name: Converge
+  hosts: vector
+  gather_facts: true # Disable if your role does not rely on facts
+  tasks:
+    - name: Install dependencies
+      ansible.builtin.yum:
+        name: ["python3-dnf", "wget", "tar", "gzip"]
+        state: present
+      become: true
+      become_method: sudo
+
+    - name: Include role
+      ansible.builtin.include_role:
+        name: "internal.vector_role"

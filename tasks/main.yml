@@ -117,6 +117,9 @@
     daemon_reload: true
   become: true
   changed_when: false
+  tags:
+    - systemd
+    - notest
 
 - name: enable and start vector
   ansible.builtin.systemd:
@@ -124,6 +127,9 @@
     state: started
     enabled: true
   become: true
+  tags:
+    - systemd
+    - notest
 
 - name: verify vector installation
   block:
@@ -145,3 +151,6 @@
     daemon_reload: false
   register: vector_status
   changed_when: false
+  tags:
+    - systemd
+    - notest

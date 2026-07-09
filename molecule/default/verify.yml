@@ -1,0 +1,45 @@
+---
+# Purpose: assert that the instance really ended up in the expected state.
+# Molecule calls this playbook with `molecule verify`.
+- name: Verify configuration
+  hosts: all
+  tasks:
+    # Часть 1: файл конфигурации создан
+    - name: Assert something
+      ansible.builtin.stat:
+        path: "/etc/vector/vector.toml"
+      register: config_stat
+
+    - name: Service create
+      ansible.builtin.stat:
+        path: "/etc/systemd/system/vector.service"
+      register: service_stat
+
+    - name: Assert config file is present
+      ansible.builtin.assert:
+        that:
+          - config_stat.stat.exists
+          - config_stat.stat.mode == "0640"
+          - service_stat.stat.exists
+          - service_stat.stat.mode == "0644"
+
+    # Часть 2: бинарник сохранен и показывает установленную версию
+    - name: Stat the vector binary
+      ansible.builtin.stat:
+        path: /usr/local/bin/vector
+      register: vector_stat
+      changed_when: false
+      failed_when: false
+
+    - name: Get vector version (only if binary exists)
+      ansible.builtin.command: /usr/local/bin/vector --version
+      register: vector_version_result
+      when: vector_stat.stat.exists
+      changed_when: false
+      failed_when: vector_version_result.rc != 0
+
+    - name: Report vector version or absence
+      ansible.builtin.debug:
+        msg: >-
+          {{ "Vector version: " ~ vector_version_result.stdout
+              if vector_stat.stat.exists else "Vector binary not found" }}

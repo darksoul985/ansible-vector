@@ -1,0 +1,15 @@
+---
+- name: Ensure policycoreutils is installed (for restorecon)
+  hosts: all
+  become: true
+  tasks:
+    - name: Install policycoreutils via dnf
+      ansible.builtin.dnf:
+        name: policycoreutils
+        state: present
+      changed_when: false
+    - name: Create directory systemd
+      ansible.builtin.file:
+        path: /etc/systemd/system
+        state: directory
+        mode: "0755"
