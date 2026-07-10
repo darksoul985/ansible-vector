@@ -1,0 +1,17 @@
+---
+- name: Prepare
+  hosts: all
+  tasks:
+    - name: Install sudo and required packages
+      ansible.builtin.dnf:
+        name:
+          - sudo
+          - policycoreutils
+          - python3-dnf
+        state: present
+
+    - name: Create directory systemd
+      ansible.builtin.file:
+        path: /etc/systemd/system
+        state: directory
+        mode: "0755"

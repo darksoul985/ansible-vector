@@ -40,3 +40,8 @@ This role sets the vector to the specified version. The default version is the "
 MIT
 
 ## Author Information
+
+## Other
+
+Tox commands succeeded
+![[commands_succeeded.png]]
