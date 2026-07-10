@@ -44,4 +44,4 @@ MIT
 ## Other
 
 Tox commands succeeded
-![[commands_succeeded.png]]
+![успешное_выполнение_теста](commands_succeeded.png)
