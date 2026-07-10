@@ -6,3 +6,6 @@
     name: vector
     state: restarted
   become: true
+  tags:
+    - systemd
+    - notest

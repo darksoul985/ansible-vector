@@ -39,6 +39,7 @@
     url: "{{ vector_repo_url }}"
     dest: "/tmp/vector-{{ vector_version }}.tar.gz"
     mode: "0644"
+  become: true
 
 - name: unpack vector
   ansible.builtin.unarchive:
